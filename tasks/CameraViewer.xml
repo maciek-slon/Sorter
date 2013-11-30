@@ -1,0 +1,59 @@
+<Task>
+	<!-- reference task information -->
+	<Reference>
+		<Author>
+			<name>Maciej Stefańczyk</name>
+			<link></link>
+		</Author>
+	
+		<Description>
+			<brief>Simple camera viewer</brief>
+			<full>Simple camera viewer</full>
+		</Description>
+	</Reference>
+
+	<!-- task definition -->
+	<Subtasks>
+		<Subtask name="Processing">
+			<Executor name="Exec1" period="0.04">
+				<Component name="IR" type="CameraGigE:CameraGigE" priority="1" bump="0">
+					<param name="device.address">192.168.51.2</param>
+					<param name="image.exposure.mode">Manual</param>
+					<param name="image.exposure.value">0.02</param>
+				</Component>
+			</Executor>
+			
+			<Executor name="Exec2" period="0.04">
+				<Component name="RGB" type="CameraGigE:CameraGigE" priority="1" bump="0">
+					<param name="device.address">192.168.50.2</param>
+					<param name="image.exposure.mode">Manual</param>
+					<param name="image.exposure.value">0.05</param>
+				</Component>
+			</Executor>
+		</Subtask>
+			
+		<Subtask name="Visualisation">
+			<Executor name="Exec3" period="0.04">
+				<Component name="Window" type="CvBasic:CvWindow" priority="1" bump="0">
+					<param name="count">2</param>
+					<param name="title">IR,RGB</param>
+				</Component>
+			</Executor>
+		</Subtask>
+	</Subtasks>
+	
+	<!-- connections between events and handelrs -->
+	<Events>
+	</Events>
+	
+	<!-- pipes connecting datastreams -->
+	<DataStreams>
+		<Source name="IR.out_img">
+			<sink>Window.in_img0</sink>
+		</Source>
+		<Source name="RGB.out_img">
+			<sink>Window.in_img1</sink>
+		</Source>
+	</DataStreams>
+</Task>
+
