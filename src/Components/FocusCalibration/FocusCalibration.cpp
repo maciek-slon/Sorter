@@ -58,7 +58,7 @@ bool FocusCalibration::onStart() {
 }
 
 void FocusCalibration::onNewImage() {
-	out_mtf.write(Types::BarGraph);
+	out_mtf.write(Types::BarGraph());
 }
 
 
